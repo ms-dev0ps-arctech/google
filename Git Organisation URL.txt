@@ -1,0 +1,3571 @@
+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
+
+docker error
+-----------------
+docker: Error response from daemon: driver failed programming external connectivity on endpoint maven-web-app (3bcd8bdd38d8a2b65de5fc3492d51305e83cbb58ec9b0851cc6c9b5a590ae533):
+Error starting userland proxy: listen tcp4 0.0.0.0:8080: bind: address already in use.
+
+----------------------------------------------------------------------------------------------------
+
+
+
+
+To show version and flavor of linux : cat /etc/*release
+
+
+
+Swap memory : when hard is full it will use swap memory .
+
+
+To Show all the services 
+----------------------------
+--------------------------------
+systemctl list-unit-files
+
+crontab -l : it will show all cron job 
+
+crontab -e : it will edit the job
+
+crontab -r : It will remove the job .
+
+touch /etc/cron.allow 
+
+> : Redirect the std o/p
+
+>> : Append the std o/p
+
+# : will ignore the job
+
+*/1 * * * * /home/ec2-user/hello.sh  > /home/ec2-user/hello.log 2>&1  --> Both o/p and error
+
+*/1 * * * * /home/ec2-user/hello.sh  2> /home/ec2-user/error.log  1> /home/ec2-user/ouput.log
+File Descriptors
+---------------
+
+0 --> Std i/p
+
+1 --> Std o/p
+
+2 --> Std err
+
+How to connect using password ?
+----------------------------------
+
+Step 1
+--------
+Connect to the server using pem and switch to root user
+
+Step 2
+---------
+Set the password the for ec2-user
+
+Step 3
+--------
+Edit the below file 
+
+vi /etc/ssh/sshd_config
+
+PasswordAuthentication yes
+
+Step 4
+-------
+Restart the sshd service
+
+service sshd restart
+
+PORT
+------
+SSH -22
+FTP - 23
+HTTP - 80
+HTTPS - 443
+SMTP - 25
+
+free : Ram size
+
+df : disk size 
+
+dmidecode : It will give  RAM type ,speed and manufacture 
+
+tee : It is used for displaying and redirect the o/p
+
+
+
+
+Shell Script
+------------------------------------------
+-------------------------------------------------
+Q) What is Shell ?
+Ans) Shell is a program , it will takes the cmd whatever the user has typed and it will gives to the OS .
+
+Shell is an interface /w user and OS.
+
+Q)How to change the shell type ?
+Ans) /bin/csh
+     /bin/ksh
+     /bin/sh
+     /bin/bash
+
+Q) To check what is current shell ?
+Ans) echo $0
+     ps -p $$
+     echo $SHELL
+
+cat etc/shells : It will show the shell 
+
+server_resources_monitor.sh
+----------------------------
+#!/bin/bash --> Shebang line
+
+df -h
+free
+top
+
+THRESOLD=80
+
+mail
+
+ifconfig
+hostname
+
+Q)How to run the shell script in Debug mode ?
+Ans) sh -x shellscript name
+
+
+echo "Hello World"
+echo "GM/GE"
+set -x
+echo"Today date is:" `date` (Only this line will be run as Debig mode )
+set +x
+echo " This is my first shell script demo "
+
+
+# --> is used for single line comment
+<< Anil
+  line1
+  line2
+line3
+Anil -------------- for multi line comment
+
+Variable
+---------------
+LOGNAME
+HISTSIZE
+
+Q) How to see system defined variable ?
+
+Ans) env/printenv : it will show variable name and value
+compgen -v : it only gives the variable name 
+
+export HISTSIZE = 200 : it will override the value
+
+HISTSIZE = 1000 : Default size
+
+user specific 
+------------
+vi ~/.bash_profile
+export HISTSIZE=200 
+
+:wq
+
+It will chage the value permanent
+
+All the users
+---------------
+vi /etc/profile
+export HISTSIZE=200
+
+:wq
+
+User Define Variable
+---------------------
+a=0
+c=3
+d=4
+name=Anil
+
+
+Command Line Arg
+------------------
+sh dbbackup.sh dbname dbloc
+
+echo $0 : Shell script name
+echo $1 : First Arg
+echo $2 : 2nd Arg
+echo ${10} : 10th Arg
+
+echo $# : No. of Arg
+echo $* : All the arg as a one string
+echo $@ : All the arg ( each arg as a one string )
+echo $$ : It will give the pid
+echo $?  : It will give the previous cmd executaion status  
+
+0 = executaion success
+
+127 - cmd not found
+
+
+if [ $# -eq 2 ]
+then 
+
+
+else
+echo "Please pass the 2 args like below "
+echo "Usage: sh $0 arg1 arg2 "
+fi
+
+-ne --> != ( not equal)
+-lt --> < (less than )
+-le --> <= ( less than or equals )
+-gt --> > (gretar than)
+-ge --> >=(gretar than or equals )
+
+use case of -eq 0
+-------------------
+
+java -version
+
+if [ $? -eq 0]
+then
+echo " java already installed "
+echo " Installing the tomcat server "
+
+
+else 
+echo " install the java '
+yum install openjdk
+fi
+
+
+String
+------------
+Zeeo or more chars are enclosed in a single or double quotes ..
+
+echo ${#string_var} --> length of the string
+echo ${string_var: 20} --> whatever no. is mentioned those char will be ignored
+echo ${string_var:20:14} --> After ignoring the 20 char it will print the 14 char only
+echo ${string_var: -8} --> It will only print last 8 char
+
+
+Arithmatic Operator
+--------------------
+expr 2 + 3
+expr 2 - 3
+expr 10 / 2
+expr 2 \* 3 ( * is a special char that's why we are using  \)
+expr 20 % 3
+
+Tasks
+-------
+Write a shell script to perform the arithmatic ops for any two given numbers.
+
+Ans) vi ar.sh
+echo $1
+echo $2
+echo " The value is :' `expr $1 -$2'
+
+
+Tasks
+-------------
+write a shell script to accept the file name from the user and check that the file is existed in 
+current dir or not ?
+
+Ans)
+
+echo "Please enter the file name."
+read fileName
+
+if [ -f $fileName ]
+then
+echo " $fileName is existed in current dir "
+else
+echo " $fileName is not existed in current dir " 
+fi
+
+
+Tasks
+-----------
+Q) write a shell script to accept the file name from the user and check that the file is having read 
+permissions or not for the user ?
+
+if [-r $fileName ]
+
+Q) write a shell script to accept the file name from the user and check that the file is having write 
+permissions or not for the user ?
+
+if [-w $fileName]
+
+
+Q) write a shell script to accept the file name from the user and check that the file is having execute 
+permissions or not for the user ?
+
+if [-x $fileName ]
+
+
+for loop 
+---------------
+syntax
+----------
+for ((initialisation;condition;inc/dec operator ))
+do
+code
+code
+done
+
+while loop
+--------------
+syntax
+---------
+initialisation
+while (condition)
+do
+code
+code
+inc/dec operator
+done
+
+
+example
+---------
+a=1
+while [ $a - le 5 ]
+do
+echo $a
+a = `expr $a + 1 `
+done
+echo " While loop over "
+
+Functions
+---------------
+syntax
+-----------
+functionname()
+{}
+
+echo " Function demo "
+
+greeting()
+{
+ echo " Hello everyone "
+ echo "message"
+}
+echo " Calling the function "
+greeting // Calling the function
+
+
+source ./shellscript name ( Calling the function in different shell script file )
+
+example
+-------
+vi utilities.sh
+add ()
+{
+echo " Print the value "
+}
+sub ()
+{
+echo " print the value "
+}
+
+vi a.sh
+source ./utilities.sh
+add
+sub
+
+
+
+
+
+
+
+
+
+GIT
+-----------------------
+--------------------------------
+
+git config --global --list : To check email and name is configured 
+
+git remote -v  : To show the alias name
+
+git remote remove aliasname : To remove 
+
+git clean : It will remove file only from working area 
+
+git log fileName : It will show specfic file details 
+
+git show commit id :It will show how many files is there in particular commit id
+
+git clean -n : It will preview the changes.
+
+git clean -f : If we want to remove new files from working area .
+
+.gitignore :
+-------------
+The purpose of gitignore files is to ensure that certain files not tracked by Git remain untracked. 
+To stop tracking a file that is currently tracked, use git rm
+--cached. Git does not follow symbolic links when accessing a .gitignore file in the working tree.
+
+
+Branch
+----------
+Branch is mutable .
+On going devlopment
+
+git branch branchname : To create branch
+
+git checkout branchname : To switch branch master to another branch 
+
+git merge : using merge cmd we move the code to one branch to other branch
+
+git merge branchname : the branch which you want to move the code
+
+git diff branchname :
+
+merge conflict
+
+git checkout -b stage : It will create branch and switch the branch
+
+git branch -d branchname: To delete the branch
+
+git push aliasname :branchname : to delete branch in remote repo 
+
+git push alias name --all : To push all the branch
+
+
+Tag
+--------
+Tag is an immutable .
+Production deployment .
+Tags are creating in master branch
+
+git tag : To show the tag
+
+git tag tag name : To create tag
+
+git tag -d tag name: To delete the tag
+
+git push alias name --tags : To push all the tags  
+
+git push an tagname : to push single tag
+
+
+git stash :
+-------------
+Saved working directory and index state WIP on stage .
+
+git stash list
+-------
+O/P : stash@{0}
+
+git stash apply : It will apply latest one 
+
+git stash drop : It will delete latest one
+
+git stash pop : It is going apply latest and delete it 
+
+
+
+git cherry-pick:
+---------
+It will commit the code by single commit id 
+
+git cherry-pick commit id
+
+git pull
+git fetch
+
+
+
+
+ssh-keygen
+
+~/.ssh/
+
+O/P : id_rsa --> private key
+      id_rsa.pub --> Public key
+
+ssh-keygen -t dsa : to ceate different ssh key using dsa algorithim
+
+id_dsa : Default file loc
+id_dsa.pub :
+
+
+ssh -T git@github.com : To check the connection of github
+
+
+Branching Strategy
+--------------------
+
+master
+dev
+QA/Pre-Prod/Stage
+UAT
+Prod
+
+bugfix_BN
+
+feature branch
+
+64GB 8 core
+
+
+git rebase:
+--------
+
+
+
+
+
+git commit --amend -m " update commit message " : to change the commit message
+
+above cmd will work on last/recent commit id
+
+
+
+Q) How to check no.of ".pdf" files in directory in linux?
+Ans-  ls | grep ".pdf" | wc -l
+
+   +0-
+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
+
+SonarQube Token : 32753b70f76de47d21914f470df0b2ea6d16126f
+
+https://github.com/orgs/ms-dev0ps-arctech1/welcome_survey/new
+
+MAven--
+=================
+
+Maven central repository search 
+
+Build Tools
+================
+Java
+-----
+Ant 
+Maven
+Gradle   
+.Net
+-------
+MS Build
+Nant
+
+C
+---
+make
+
+Python
+---------
+ PyBuilder
+
+Ruby
+------
+Rake
+
+Apache Spark
+-----------------
+Scala
+
+React JS/Node JS /Angular JS
+------------------------------
+Gulp or Grunt
+
+
+What is Maven ?
+------------------
+Ans) Apache Maven is an open source Java based build tool ..
+
+Maven Directoy Structure 
+--------------------------
+boot :
+
+bin : binary files (mvn file)
+
+conf:configuration files (settings.xml)
+
+lib: libraries
+
+What is maven default file name ?
+-------------------------------------
+pom.xml
+
+Ant-- Build.xml
+----------
+
+Q) Can we give the custom file name?
+----------------------------------------
+Yes we can give the custom file name.
+
+Q) How to run ?
+-----------------
+mvn -f custom file name clean package
+
+ 3 Types of Repos-
+----------------------
+1)Maven local Repo
+Q) What is the default path for maven local repo ?
+Ans--
+Defalut maven local repo path== ~/.m2
+
+Q)How to change custom path ?
+Ans ) mavne home directory/conf/settings.xml
+vi settings.xml
+<localRepository>Here keep the path</localRepository>
+
+2)Maven Central Repo
+3)Remote Repo
+
+Maven Life cycles
+--------------------
+3 life cycles
+
+each lifecycle is made up of phases and in all, there are 28 phases - default 21, clean 3 and site 4
+
+clean
+--------------
+The clean lifecycle contains three phases pre-clean, clean and post-clean .
+
+When we invoke command mvn clean, maven loads Clean Lifecycle and executes the phases pre-clean,
+clean and post-clean one after another in that order.
+
+
+Site
+----------
+Site lifecycle generates project documentation and reports about the project. It contains
+four phases - pre-site, site, post-site, site-deploy. We can generate 
+a site from a Maven project by running command - mvn site.
+
+
+
+
+lf                        Goals
+-------                 ---------------------------
+Clean                    Clean: It  deletes the previos build files 
+
+Site                     Site : It will generate the document for source code
+
+Default                  Validate : It will check the project dir structure and some resource file
+                         Compile : It will compile the java code and Junit test cases
+                         Test    : It wil run the Junit test cases 
+                         Package : It will create the packages (jar/war/ear)
+                         Install :It will store package / build artifact into maven local repo
+                         Deploy  : It will store the packages into remote repo.
+                         generate-sources : Generate any source code for inclusion in compilation
+                         process-resources: Copy and process the resources into the destination directory, ready for packaging
+                         verify : Run any checks to verify the package is valid and meets quality criteria
+
+
+
+
+
+
+Q) How to skip running the unit test cases ?
+Ans -- mvn clean package -DskipTests
+Q)How to skip compile ?
+ Ans-- mvn clean package -Dmaven.test.skip=true
+
+By default maven home directory is .m2 folder
+
+<distributionManagement>
+Here Nexux repo dretails 
+</distributionManagement>
+
+build for single module 
+-------------------------
+mvn clean package -pl module name
+-pl= project list
+
+
+
+
+
+Tomcat-
+================
+
+Application Server---
+---------------------------
+JBoss/Wildfy--RedHat
+Tomcat-Apache
+WebLogic--BEA--Oracle
+WAS--WebSphere Applcation Server-IBM
+.Net Apps--IIS
+
+What is Tomcat ?
+--------------------
+Tomcat is a light weight ,open source web container used to deploy
+and running Java based web applications .
+
+What is Webserver ?
+--------------------
+A Web server is a program that uses HTTP protocol to serves
+web content to users. 
+
+Tomcat Directory Structure-
+--------------------------------
+Bin:
+
+Conf--
+----------
+tomcat-users.xml
+server.xml
+
+Lib:
+
+Logs--
+--------
+manager.log
+hostmanager.log
+catalina.out
+localhost.log
+
+Webapps:
+------------
+All the deployed app
+5 default app 
+
+Work:
+----------------
+Application related files are stored in this directory
+
+Temp :
+
+
+
+ln -s /opt/apache-tomcat-10.0.27/bin/startup.sh /usr/bin/startTomcat
+ln -s /opt/apache-tomcat-10.0.27/bin/shutdown.sh /usr/bin/stopTomcat
+ 
+
+To check the status of tomcat server
+ps-ef | grep tomcat
+
+To run tomcat outside linux server:
+/webapps/manager/META-INF/
+vi context.xml
+<!-- <Valve tag> -->
+ 
+Web Server-
+--------------
+Apache HTTP server
+Nginx(Engine X)
+IBM HTTP server (IHS)
+
+Differences bet web server and App server--
+
+WebServer                    AppServer
+------------                 ----------------------
+1) To serve the static         To serve the Web apps and Enterprise apps.
+   content .
+2) Load Balancing purpose  
+ /var/www/html : For deploying 
+
+Q) What is the configuration file where we configure URL in Apache HTTP sever ?
+Ans- httpd.conf file .
+
+All the HTTP server port no is 80.                    
+
+SonarQube--
+==============
+
+Q) What is the cmd to run sonarqube in mvn java project ?
+
+Ans- mvn sonar:sonar
+1st sonar: Plugin
+2nd sonar:Goal name
+
+we have to configure sonar-project.js for server details in node js
+for run npm run sonar
+
+OR -
+ node sonar-project.js 
+
+H2 Database is default database in SonarQube
+
+sonarcloud.io
+-------------------------------------------------------------------------
+Tomcat Default Port No - 8080 /New Port : 9980
+SonarQube port No - 9000
+Nexus Port No - 8081
+Jenkins Default No : 8080/ New port :
+My SQL Port No : 3306
+
+To Edit port
+---------------
+Tomcat : server.xml
+SonarQube : sonar.properties
+Nexus : /etc/nexus-default.properties
+
+Nexus---
+=============================================
+Nexus is an OSS java based artifactory Repo.
+It can be used to store the build artifacts(packages)
+and retrive the build artifacts whenever we required .
+
+vi/opt/nexus/bin/nexus.rc = To run as nexus user.
+cat /opt/sonatype-work/nexus3/admin.password
+
+Q) Where we are going to store nexus credential ?
+Ans ) settings.xml 
+<servers>
+ <server>
+  <id>nexus</id>
+  <username>admin</username>
+  <password>Passw0rd</password>
+ </server>
+</servers>
+
+400 error - Bad request
+403 error - Forbidden 
+
+
+For Creating proxy repo-
+--------------------------
+<repository>
+ <repository>
+ <id>nexus</id>
+  <name>Proxy Repo</name>
+  <url>http://3.109.202.191:8081/repository/mss-proxy-repo/</url>
+ </repository>
+</repository> 
+
+vi settings.xml
+
+<mirror> 
+<id>nexus</nexus>
+<mirrorOf>*</mirrorOf>
+<name>Proxy Repo</name>
+<url></url>
+</mirror>
+
+LDAP : Light weight directory access protocol
+S3: Simple storage service
+
+Jenkins: 
+===========================
+
+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
+
+
+CI :- Continuous integration is the process of automating the build and testing the code ,
+      when a devloper push the code to the Version control system
+JaCoCo :-Java code coverage 
+
+/var/lib/jenkins/ : Default Jenkins home directory
+
+/var/lib/jenkins/workspace/wallmart-dev/target/maven-web-application.war
+
+War file store in target directory .
+
+Deploy to container plugin need to install for deploy the application
+-------------------- 
+in Tomcat/Jboss/Glasfish server.
+
+var/lib/jenkins/tools : in this directory installation tool will be here
+
+/var/lib/jenkins/tools/hudson.tasks.Maven_MavenInstallation/maven 3.8.2/conf
+
+cat settings.xml: To configure nexus credential
+
+manager-script role is for deploy the application
+
+Automate the Build Trigger
+--------------------------
+Going to use on -going project
+Poll SCM : (***** - Every minute ) : will check through commit id .
+------------ 
+
+Build Peridically : (Going to use in particular time)
+------------------- 
+
+GitHub Webhook : Goto github setting then click on webhook
+---------------- 
+jenkins url/github-webhook
+
+plugin:
+---------
+safeRestart: jenkins url/safeRestart
+                       /restart : Forcibly restart 
+NextBuildNumber:
+
+Audit Trail :
+
+Job Config History :
+
+Role Based Authorization 
+
+If you want to add a plugin form outside or third party then we 
+we have to use advance tab in plugin .
+
+jenkins directory structure
+------------------------------------
+jobs
+-----
+wallmart-dev
+ builds nextBuild Number
+  1
+  2
+
+workspace
+----------
+wallmart-dev
+wallmart-dev@tmp
+
+tools
+-------
+s/w details available
+
+users
+---------
+users.xml : All the user details available here
+
+plugin
+-----------
+
+installed plugin details available here
+
+Plugin Management
+-----------------
+restart
+safeRestart
+Audit Trail
+job config plugin : To restore the job 
+
+
+
+
+
+Monitoring Tools :
+--------------------
+1> Application Monitoring Tool
+--------------------------------
+Grafana
+Promotheous
+NewRelic
+NAgios
+DataDog
+App Dynamics
+
+2> Log Monitoring Tools
+-------------------------
+ELK
+Splunk
+Logentries
+
+How to change the port ?
+--------------------------
+RHEL:
+-----
+etc/sysconfig
+
+jenkins file : port is there
+
+Ubuntu:
+--------
+etc/default
+
+Jenkins Security
+-----------------------------
+----------------
+
+Build with parameter
+---------------------
+
+
+scp cmd use for copy file form one server to another server
+scp filename username@IP/HN:/opt/a../webapps/
+
+Install SSH agent
+----------------------
+username : ec2-user
+Key value : Pemfile RSA key
+
+cat pemfilename
+
+Pipeline Script:
+-----------------
+node{
+}
+OR:-
+node(master)
+{
+def mavenHome = tool name: "maven3.8.5" //for creating variable in groovy script
+
+ stage('CheckOutCode'){
+git branch: 'development', credentialsId: 'cba7edb4-e25f-434c-90ba-28fe6fb075c6', url: 'https://github.com/anilsenapati94/maven-web-application.git'
+} 
+stage('Build')
+{
+ sh "${mavenHome}/bin/mvn clean package"
+}
+stage('ExecuteSonarQubeReport')
+{
+sh "${mavenHome}/bin/mvn sonar:sonar"
+}
+stage('UploadArtifactIntoNexus')
+{
+sh "${mavenHome}/bin/mvn clean deploy"
+}
+stage('DeployAppIntoTomcatServer')
+{ 
+ sshagent(['d368104f-b55f-48fa-89d3-cb70be1a77f7']) {
+    sh "scp -o StrictHostKeyChecking=no target/maven-web-application.war ec2-user@35.154.110.139:/opt/apache-tomcat-9.0.62/webapps"
+
+}
+}
+stage('SendEmailNotification')
+{
+
+}
+}
+
+Pipeline Declarative way-
+---------------------------
+pipeline
+{
+agent any
+//OR agent{lable 'NodeName' }
+tools{maven="maven3.8.5"}
+options{timestamps()
+
+} 
+triggers{
+//Write here for pullSCM/Webhook
+//Buildperiodically
+cron('****')
+//GitHub WebHook
+githubPush()
+}
+stages
+{
+stage('CreateDirectoryAndFile')
+{
+ steps
+  {
+   dir('/tmp/pipeline')
+   sh "touch pipeline.txt"
+  }
+}
+stage('CheckoutCode)
+{
+ steps
+ {
+  // put the code
+ }
+}
+}
+post{
+ success{}
+ failure{}
+ abort {}
+ always{}
+}
+}
+parameters{
+choice(name: "BranchName" , choices:['master','development','stage','qa'])
+string(name: "PersonName" ,defaultValue:'AnyName')
+}
+
+
+Default Filename for jenkin files is " Jenkinsfile " .
+                                    --------------------
+Multi Branch Pipeline
+----------------------------
+
+Jenkins Backup
+---------------
+Install plug in
+
+ThinBackup = -1 (ininite )
+
+Every 1 hr took backup
+
+Full Backup
+
+100 backups  we are maintaining
+
+rsync cmd is used for sync dir from one server to another .
+
+Migration
+------------
+/etc/sysconfig/jenkins :
+/var/lib/jenkins : 
+
+Above both jenkins file and directory need to copy new server (/var/lib/jenkins)
+Job Import plugin install in new jenkin server 
+
+Master Slave Architecture-
+-----------------------------
+Q) Why we need to implemement master slave architecture ?
+Ans- To improve the performance .
+
+Linux to linux server TCP/IP protocol
+
+Job information available in master .
+
+Source code will store into slave machine .
+
+Java and git need to install
+
+Winram is the connection for windows .
+
+Q) How many slaves you created ?
+
+Ans) 6 slaves
+
+server configuration 
+--------------------
+64GB RAM 8 core CPU
+
+Shared Libraries-
+--------------------
+It is a concept of having a common pipeline code in the version control system that can be used by any 
+any number of pipeline just by referening it . In fact multiple teams can use the same library for their
+pipelines.
+
+
+
+Ansible -- (Configuration Management Tool )
+=========================================================================
+=========================================================================
+
+
+
+
+It's agent less configuration management tool.
+It's push based configuration managent tool.
+Redhat is vendor
+Python is used to devlop .
+
+Q) What is configuraton ?
+
+Ans - Configuratuion can be anything (action) which you 
+would  like to perform /execute on some system/server.It can be
+ 1) Creating /Deleting Users,Groups.
+ 2)Installing /Upgrading packages (Softwares).
+ 3)Creating/Deleting files/folders.
+ 4)Changing permissions/ownership of files/folder.
+ 5)Starting/Stopping services.
+ etc
+
+Q) What is configuraton management ?
+
+Ans -EX--Chef,Puppet,SaltStack.(Pull BAsed Architecture )
+
+Push Based Architecture (Ansible) 
+
+Host Inventory
+---------------
+We have to configure ssh or server details in host inventory
+to configure /
+
+We will list and group the host which we want configure using ansible .
+
+Static Inventory : It's a static file in which we will list the
+                   servers.
+Default location of static Inventory is :::/etc/ansible/hosts
+
+we can change the static inventory path to custom path .
+
+ansible-playbook -i custom path(static inventory)  palybook.yml
+
+Dynamic Inventory : It's a script(Python,shell) which get the 
+                   server details dynamically from external sources
+                   like AWS,Azure,Database.
+
+Playbook : It contains set of some task which will be executed against some hosts .
+
+
+vi /etc/ssh/sshd_config : To enable the password authentication
+
+
+
+
+ sudo service sshd restart
+
+Ansible can install in different ways.
+
+1)Using System(Linux) Package Managers.
+  yum-->Rehat,CentOs,AmazonLinux
+  apt-->ubuntu,Debian
+2)Using pip (Python Package Manager )
+  sudo pip3 install ansible --user
+
+host ip ansible_user=ec2-user ansible_ssh_private_key_file=~/Anil.pem
+
+
+host ip ansible_user=ec2-user ansible_ssh_private_key_file=~/Anil.pem
+
+
+Ansible Command:
+==================================
+
+ansible all -m copy -a "src=test dest=/tmp/test"
+
+
+ansible <GroupName/HostName> -m <module> -a <args>
+
+ansible all -m ping 
+#To verify ssh connection b/w ansible server with host machines.
+
+
+Modules:
+========
+
+copy , user, group , yum , apt, service , template
+
+# To see the list of all modules
+ ansible-doc-l
+
+To connect between one server to another via pasword lees connection 
+we use ssh 
+
+1)Generate ssh key using below cmd.
+
+ssh-keygen:: To generate ssh key  
+
+2)To copy the ssh key one server to another using below cmd ::
+
+ssh-copy-id username@IP 
+
+
+Q) Where we can define/list ungrouped server in host inventory ?
+
+Ans - Before  group start we can define .
+
+
+ansible-doc -l |grep "win"
+
+ansible all -m command -a "yum install git -y"
+ansible all -m yum -a "name=git state=present/absent autoremove=yes"
+ansible all -m command -a "free -m"
+ansible all -m command -a "df -kh"
+
+-b(--become)= Previleage access
+Without sudo we have to use -b option
+
+Package ::
+---------------------
+
+Q) What is idempotent ?
+
+Ans) An action which , when performed multiple times,has no further effect on its subject after the 
+     first time it is performed .In simple words ,it means that if any module runs the first time then
+     it should not run again .This will save our CPU time.So we need to have every module idempotent
+     in nature .
+
+shell and command module are not idempotent.
+
+
+USe for install in unknown server.
+
+Q) Difference b/w command and shell module ?
+
+Task::
+=======
+
+In AppServer
+1) Install httpd
+2) Copy Index.html file
+3) Start httpd (Service module )
+
+(Hypen)- represents array in yml
+
+To execute playbook--
+-----------------------------
+
+
+- hosts: appServers
+  become: true 
+  tasks:
+  - name: Install httpd
+    yum:
+      name:httpd
+      state:present
+  - name: Copy index.html
+    copy:
+     src:index.html
+     dest: /var/www/html/index.html
+  - name:Start httpd
+    service:
+      name: httpd
+      state: started
+
+
+/usr/share/nginx/html/index.html
+
+ ansible playbook <playbook name> : to execute playbook
+ 
+
+copy
+------
+it is used for copy a file from the local or remote machine to a location on the remote machine.
+
+fetch:
+-------
+use for copy for remote server to local
+
+ansible IP/hostname -m fetch -a "src=/tmp/test.txt dest=/home/ansible/test.txt"
+ansible IP/hostname -m copy -a "dest=/tmp/test.txt src=/home/ansible/test.txt"
+
+Using playbook
+------------------
+
+-hosts:IP/hostname
+ tasks:
+ - name: Fetch file to ansible server
+   fetch:
+     src: /tmp/test.txt
+     dest: /home/ansible/test.txt
+-host: IP/hostname
+ tasks:
+ - name: Copy File
+   copy:
+     src: /home/ansible/test.txt
+     dest: /tmp/test.txt 
+
+
+
+
+
+Q) What is the diff b/w copy and template module ?
+
+Q) what is dry run in ansible , how to execute dry run in playbook
+Ans - ansible-playbook <playbookName> --check
+
+
+Variable -
+---------------
+--extra-var ( For passing var)
+
+Ansible uses a template called Jinja2 variable .
+
+Runtime vars
+------------
+ansible-playbook playbookname --extra-vars variableName= variable
+
+
+Play book vars
+-----------------
+-hosts: all/hostname
+ become: true
+ vars:
+   packageName: nginx
+ tasks:
+ - name: Install nginx
+   yum:
+     name: "{{packageName}}"
+     state: latest
+ - name: Print Variables
+   debug:
+     msg: "Variable name value: {{name}}"
+ - name: Copy index.html
+   template:
+     src: index.html
+     dest: /usr/share/nginx/html/index.html
+
+
+
+Group vars
+---------------
+ 
+We can variable at a group  level these variables will be accessable
+in any playbooks or template for that group.
+
+
+Whereever we have host inventory in same directory we can create group
+vars files under one directory called group_vars.
+
+
+group vars files name should be your group name.
+like below
+
+/etc/ansible/group_vars/all.yaml
+/etc/ansible/group_vars/<groupName>.yaml
+
+
+
+Host vars::
+=================
+We can variable at a host  level these variables will be accessable
+in any playbooks or template for that host.
+
+
+Whereever we have host inventory in same directory we can create hosts
+vars files under one directory called host_vars.
+
+
+like 
+
+/etc/ansible/host_vars
+
+host vars files name should be your host name.
+
+like below
+
+/etc/ansible/hos_vars/<hostIP/Name
+
+Role vars
+
+
+
+
+
+
+
+
+
+
+-v(verbose) : it will give additional details.
+-vv, -vvv : all are same
+--step : it will ask confirmation for next task  (yes/no/continue) 
+
+tags in ansible:
+----------------------
+
+to execute particular task
+
+ansible-palybook playbookName --tags " install"  
+
+tags:
+ -install (some meaningful name)
+
+--skip : To skip the tags
+
+--syntax-check: To check syntax
+
+--tags "tag name"
+--skip-tags "tag name"
+
+--list-tag : To check the list tag use in playbook
+
+Q) what is the diff b/w handlers and task ?
+Ans - 
+
+tasks: Some actions(configurations) which will be executed on 
+     given host machines from top to bottom.
+    All the tasks will be executed by default.
+
+handlers: Handlers are special kind of tasks which will be not 
+         be executed by default .
+        Some task has to notify the handler.If the task which
+        is notifying is changed then only handler will be executed.
+        Handlers will be executed at the end of the play.
+
+notify:
+-handlername
+
+handlers:
+- name
+
+gathr_facts: no/yes
+ 
+gather_facts : it is gather data about host machine /information about servers . It is using setup module internally to fetch info about 
+host machines.
+
+wait-for: to execute task in delay
+ delay:
+
+Install tomcat using ansible
+
+Install jenkins using ansible
+
+get_url : To download the files
+  url:
+  dest:
+
+
+Loop::
+===============
+-hosts: all
+ become: true
+ tasks: 
+  -name: Install Package
+   ignore_errors: yes
+   yum: 
+    name: "{{item}}"/ ['wget' , 'git' , 'vim' , 'unzip']
+    state: present
+   with_itemS:
+   - wget
+   - git
+   - vim
+   - unzip 
+
+
+Condition:
+========================
+
+When 
+
+
+
+
+Exception Handling :  ignore_errors: yes
+
+
+Ansible vault :
+====================
+We need to set a vault password 
+
+
+ansible-vault create --> It will create a file and encrypt it
+
+ansible-vault encrypt--> It will encrypt file 
+ansible-vault edit
+ansible-vault view
+ansible-vault decrypt
+ansible-vault rekey
+
+--ask-vault-pass
+
+TASK :: Instll tomcat using ansible playbook
+
+
+Ansible Roles:
+======================
+ansible-galaxy httpd
+
+
+
+
+
+
+
+
+
+AWS
+===============================================================
+
+
+Cloud Service : 
+-----------------
+A cloud service is any service made available to users on demand via the 
+internet from a cloud computing provider's servers.
+
+Cloud Computing :
+--------------------
+Cloud computing is the delivery of computing services including servers,storage,
+databases,networking,s/w,analytics and more over the internet ( Cloud )
+hosted at a remote data center managed by a cloud service provider.
+
+
+Types of cloud :
+-------------------
+
+ Public cloud
+ ----------------
+Public clouds are owned and operated by a third-party cloud service providers ( CSP ),
+which deliver their computing resouces like servers and storage over the 
+internet .AWS,Azure,GCP is an example of a public cloud.With a public cloud ,all h/w,
+s/w and other supporting infrastructure is owned and managed by the cloud 
+provider. You access these services and manage your account using a web browser,API's, CLI's.
+
+
+
+IAAS : infrastructure as a service
+------------------------------------
+(Networking ,Storage,Servers,Virualization) Managed by cloud
+(App,Data,Runtime,Middleware,O/S) Managed by you
+
+
+PASS: platfrom as a service
+-----------------------------
+(Runtime,Middleware,O/S,virtualization,Servers,Storage,Networking) Colud
+(App , Data) you
+
+
+SAAS: s/w as a service
+-------------------------
+(Runtime,Middleware,O/S,virtualization,Servers,Storage,Networking,App,Data) cloud
+
+
+User Data ( Boot Strap Script)
+-------------------------------
+Using user data we can execute some  script/cmd while creating a server .
+
+
+IOPS --> Input output operations per sec per GB .
+
+Private IP :
+---------------
+By default every EC2 instance will be provided with a private IP address. Private IP address allow 
+instance to communicate as along as they are located in the same VPC .
+
+Public IP :
+----------------
+EC2 instance can be launched with /without public IP address .
+Public IP address is required for the instacne to communicate with the network .
+
+Elastic IP :
+---------------
+Static public IP address for the instance .
+Chargeable for each elastic IP .
+
+
+~/.ssh/authorize_keys : Public key available in this path (.pem file)
+
+lsblk : list block storage
+
+
+# sudo cat /var/log/cloud-init-output.log : To check the user data is executed or not .
+
+SAN : Storage Area Network
+
+
+Root volume is required for to boot the system .
+
+Block Storage: 
+File Sorage
+Object Sotorage :
+-----------------------
+Without mounting this storage to server we can access data from any where. 
+Each and every object which we are uploading storage will a unique object id
+and endpoint (URL) .Using that endpoint we can access from any where. 
+
+
+
+
+Storage Service
+------------------
+EBS ( Elastic block storage)
+-------------------------------
+
+Max size one EBS Volume ?
+Ans: 16TB/16000GB
+
+Min Size of EBS volume ?
+ans: 1GB
+
+EC2 and EBS should be in same az( Availability zone ) 
+
+EBS can't be mounted multiple instances at a same time 
+
+
+sudo file -s /dev/xvdf : To check the format
+sudo mkfs.ext4 /dev/xvdf : To format the volume 
+
+sudo mount /dev/xvdf  /var/lib/jenkins : TO mount
+
+sudo cp /etc/fstab /etc/fstab.orig
+sudo blkid : It will give the UUID details 
+sudo vi /etc/fstab ( do the changes carefully )
+sudo umount /var/lib/jenkins
+Sudo mount -a
+
+Sudo -lar /var/lib/jenkins : To check the file format
+
+We can only increase the size of EBS volume we can't decrease we also change
+volume time while it is in use.
+
+EBS Snapshot ::: Back up of ebs volumes 
+
+Snapshot are use full to recover/restore the data in case of any failure in EBS Volume .
+
+Snapshots are usefull to migrate your data from one AZ to another AZ within same region or we can
+move from one region to another region.
+
+In same region we can create a volume
+
+In another region we need to copy snapshot to region then create the volume
+
+AWS will maintan Snapshots in S3 .
+
+
+EFS(Elastic File system)
+---------------------------
+EFS is a managed nfs. Managed file storage for EC2.
+
+To mount EFS in server we need to install nfs-client or efs client in server.
+
+NFS port : 2049
+
+
+S3(Simple Storage Service)
+----------------------------
+Each object which we maintain in s3 will have a unique id and endpoint.We 
+can access the object using HTTP and RestApi.
+
+S3 bucket name is unique acorss the globe.
+
+GUI ,CLI ,API using we can upload the data.
+
+S3 is best place to store application static files like images,docs,mp3/mp4 etc. .
+
+S3 can be used to maintain app logs and backups etc. 
+
+Q) How many buckets we can create by default in AWS account ?
+Ans ) 100 buckets (soft limit) 
+
+Q) What is max file size linit in S3 ?
+Ans ) 5TB/5000GB                                
+
+We can secure our object in S3 .
+
+Security 
+---------
+ACL : Access Control List
+
+Public Access
+
+Bucket polices
+
+
+ARN : Amazon Resource NAme :
+-----------------------------
+It's a unique identier which will allocated to aws resource ( IAM User,EC2,
+VPC,ELB,S3).
+
+arn:aws:serviceName:region:AZ:id/name of resource
+
+region and AZ is not mandatory .
+
+Q) What is versioning in S3 ?
+Ans) Versioning is a means for keeping multiple variants of the same object
+in the bucket.
+
+
+Storage classes & object life cycle 
+--------------------------------------
+
+Standard --> The data which we are going to access frequently.
+
+IA--> Infrequent Access
+
+RRS(One Zone IA)-->Reduced redundancy Storage .Non critical & reproducable.
+
+
+Galacier --> Archival Data 
+
+
+object life cycle 
+-----------------------
+By creating object life cycle rules we can transit objects from one storage 
+class to another storage class and also we can set an expirtion(delete) objects.
+
+
+Q) Replication in S3 ?
+Ans ) Replication enables automatic, asynchronous copying of objects across Amazon S3 buckets. 
+Buckets that are configured for object replication can be owned by the same AWS account or by different accounts. 
+Objects may be replicated to a single destination bucket or multiple destination buckets.
+
+AWS Snow Ball 
+
+
+VPC(Virtual Private Cloud)
+------------------------------
+VPC is a private sub-section of AWS that you control,in which you place AWs resources.
+You have full control over who has access to the AWS resources that you palce inside our VPC.
+VPC lets you provision a logically isolated section of the AWS cloud where you launch AWS
+resources in a virtual network.
+In the VPC we can control our virtual networking env ,IP address ,creations of subnets n
+route tables & gateways.
+When we create an AWS account a default VPC is created .
+
+
+What's in the VPC tool box ?
+----------------------------
+VPC
+
+5  VPC we can create in one region by default . (soft limit)
+
+Subnets
+----------- 
+in a single VPC we can create 200 subnets up to /16
+
+Private Subnet: The subnet which does not have acces to the internet .
+                The subnet which does not have route to IGW in route table .
+
+Public Subnet:
+
+Route tables
+----------------
+Define how traffic should be routed from to each subnet
+
+Access control list
+--------------------
+Stateless network filtering b/w subnets.
+
+Internet Gateway
+-------------------
+A logical device enabling traffic to be routed t/from the public internet.
+
+1 igw we can attach to VPC.
+
+NAT 
+------------
+Provide Network Address Translation to private instances for 10Gbps traffic.
+
+
+Classless Inter-Domain Range ( CIDR)
+---------------------------------------
+  32-n
+ 2
+
+Sider block should be b/w 16-28
+
+
+RFC1918 is reserved ip for private subnet
+
+ 0-127 : Class A IP address
+128-191 : Calss B IP address
+192-223  : Class C IP address
+
+VPC CIDR : 10.0.0.0/24
+
+Subnet CIDR should be subset of VPC CIDR .
+
+In each subnet first 4 IP's and last Ip is reserved for AWS
+
+10.0.0.0 : Network address
+10.0.0.1 : Reserved by AWS for the VPC router
+10.0.0.2 : Reserved by AWS> The IP address of the DNS server is always the base
+           of the VPC network range plus two .
+10.0.0.3 : Reserved by AWS for future use .
+10.0.0.255 : Network broadcast adress. We do not support broadcast in a VPC,
+            therefore we reserve this address .
+
+Total IPs - 5* No. of Subnet = IP will assign for our use
+
+
+Minimum 2 public subnet is required for create the ELB . (Elastic Load Balancer )
+
+Q) What is jump server ?
+Ans) We are using jump server for connecting private server .
+
+Q) What is NAT Instance/Gateway ? When we need instance ?
+
+Ans) Network address translater is once network device which enables access
+ to the internet for private subnets.
+
+
+nslookup : is used for ip or domain name .
+
+
+NACL( Network access control list )
+----------------------------------------
+It is a firewall at  subnet level
+
+S.G is a firewall at EC2 level
+
+
+
+VPC Peering:
+---------------------
+If CIDR of VPC are overlapping we can't do vpc peering .
+
+ CIDR of VPC should not be overlap .
+
+VPC peering is done by region to region
+ same account in one VPC to Another VPC .
+
+Requester
+
+Accepter
+
+
+ELB (Elastic Load Balancer)
+--------------------------------
+It is a managed service. ELB automatically distributes incoming application 
+traffic across multiple target such as EC2 instances, Containers,IP address
+in your VPC.
+
+
+RDS ( Relational database Service)
+
+curl -vL URL : to test the application
+
+ELB is a regional service .
+
+Application Load Balancer : is working in layer 7
+-----------------------------------
+It can intercept the request .We define host base routing or path based routing .
+
+Network Load Balancer : Is working in Layer 4
+-------------------------------------------------
+It forward the traffic sorce to dest. TCP
+
+Classic Load Balancer
+----------------------------
+
+Supports both
+NLB + ALB
+
+OSI --> Open System Intercommunication model
+
+7)Application Layer
+6)Presentataion Layer
+5)Session Layer
+4)Tansport Layer
+#)Network Layer
+2)DataLink Layer
+1) Physical Layer
+
+
+Listener in ELB 
+----------------
+
+Listener forward the traffic to target group 
+
+Route 53
+
+SSL--> Secure Socket Layer
+
+TLS--> Transfer Socket Layer
+
+302 : status is redirection 
+
+Least outstanding request : Whatever server has less request LB will forward traffic to that server .
+
+AutoScaling :
+---------------
+Based on the load on the servers create a plan
+
+If CPU>80 scale out 2 instance
+
+
+MIN 2
+DES 2
+MAX 10
+
+Launch Configuration /Template
+
+AutoScaling Polices tells how to configure and when to configure
+
+
+Launch Configuration is input for AutoScaling group.
+
+Internally autoscaling use Cloudwatch for monitoring the load .
+
+Cloudwatch--> Monitoring Service
+
+
+
+IAM (Identity And Access Management )
+---------------------------------------
+
+It's all about authentication and authorization .
+
+
+
+Policies--> we can define permission for a specific AWS resources/service/workloads.
+(EC2,S3,ELB,AutoScaling etc.) 
+
+Users--> User are nothing but the guys who will interact/access AWS. ike devlopers,Devops ,AWS admin
+
+User will get access based on the policies attachd to them directly.
+Or BAsed on the policies attached to group which they belongs to .
+
+Groups --> Collection of usrs.
+
+Roles
+
+
+
+
+
+
+
+
+
+
+
+
+
+Docker::
+=================================================================
+=================================================================
+Q) What is Docker ?
+Ans:Docker is a containerization platform , using docker we 
+can build,ship(move) and run applications as Containers.
+
+Type 1 --> Bare Metal Hypervisor (VM Ware ESX/ESxi , Citrix Xen)
+Type 2 --> Oracle Virtual Box ,VM ware workStation ,Hyper-v
+
+
+Application Container--> Conatiner contains everything which is 
+ 
+required to run a peice of software . It contains application code +
+
+Its dependecies (s/w + lib) ,configurationss ,ENV etc.
+
+
+Q)Diff b/w virtualization and containerization ?
+
+ANS) Virtual Machine                                Container
+   --------------------------                    ----------------------------
+ Heavyweight                                       Lightweight
+ Limited performance                               Native performance
+ Each VM runs in its own OS                        All containers share the host OS
+ H/W level virtualization                          OS virtualization
+ Startup time in minutes                           Startup time in milliseconds
+ Allocates required memory                         Requires less memory space
+ Fully isolated and more secure                    Process level isolation ,less secure     
+
+Docker has very good CLI & API's to manage containers .
+
+Docker Architecture ::
+============================
+
+Docker Client
+
+Docker Daemon/Host/Server
+
+
+Docker Registry:
+
+
+Registry: It's central server where we can create multiple 
+
+repository to store artifacts.(Nexus,JFrog)
+
+Docker Registry: It's central server where we can create multiple 
+
+repository to store docker artifacts.(Docker Hub,Nexus,JFrog)
+
+Repository : is collection of multiple version of same artifact
+
+Q)How many containers create in one docker server ?
+
+Ans : it is depands upon system resources .
+
+sudo usermod -aG docker ubuntu
+
+
+Docker build context;;
+-----------------------------
+
+Build Context:: From which dilectory we are building the image
+All the files and directory which are part of build context will 
+be sent to DockerDaemon by Client.
+
+docker build -t <ImageTag> <buildContext>
+
+docker build -t anilsenapati94/maven-web-application:1 .(current directory)
+
+Q)What is the working directory of Docker ?
+Ans : /var/lib/docker/
+
+docker images : to show the images
+
+docker login -u (username) -p (password)
+docker push anilsenapati94/maven-web-application:1
+
+docker run --name <containerName> <Image>
+ 
+docker run --name containerName -d -p hostPort:containerPort Image
+
+docker run --name mavenwebapp -d -p 8080:8080 anilsenapati94/maven-web-application:1
+
+-p :Port publish /PortMapping
+-d : Detached mode ( Background )
+Or--
+
+docker pull anilsenapati94/maven-web-application
+
+
+docker ps : To see the docker container 
+
+Q)What is port publish/port fowarding or port mapping ?
+
+Image Commands::
+------------------------
+docker build -t <ImageTag> <buildContext>
+
+ImageTag--> <Registry /Repo:tag>
+
+docker build -t anilsenapati94/maven-web-application:1 <buildContext>
+
+docker build -f custom docker file 
+
+ECR :Elastic Container Registry
+
+docker images -q : It will show only image id 
+
+docker image inspect <ImageID/Name>
+OR-
+docker inspect<ImageID/Name> :: Details of image
+
+
+To delete the Images:
+----------------------------
+docker rmi <ImageID/Name>
+docker rmi <ImageTag/ID> <ImageID/Tag>
+docker rmi $(docker images -q)
+
+Q) Can we delete image if there is a contianer created/running
+ out of that image ?
+
+Ans : No .
+
+Q) How to see /list the layers of specific image ?
+
+Ans: docker history imgaeID/tag
+
+Q)What is dangling images ?
+
+Ans: An image without repository reference(tag) is called dangling images.
+
+docker images -f danglings=ture --> To see the dangling images .
+
+# To delete all the dangling image
+
+docker rmi $(docker images -q -f dangling=true)
+
+docker image prune
+docker system prune
+WARNING! This will move
+ -all stopped containers
+ -all networks not used by at leaset one container
+ -all dangling images
+ -all dangling build cache
+
+
+docker container prune
+docker network prune
+docker volume prune
+
+
+Docker tag
+
+To change the dangling images to add the tag 
+and we can add the same imgae to multiple registry
+usng DOCKER TAG OR BUILD cmd.
+
+We can tag same images to multiple registries . 
+
+docker tag (existingImageID/Name) (NewIMAgeNAme)
+
+docker rmi -f tagName --> It will delete the image tag .
+
+
+
+docker save and docker load-
+-----------------------------------
+
+To push the image one server to another server without registry or internet.
+
+syntax: docker save (ImageID/tag) -o Newfilename.tar
+scp
+docker load -i NewFilename.tar
+
+Authenticae with docker registries
+=======================================
+
+docker login -u(username) -p(password) RegisryURL
+
+In case of docker hub
+
+docker login -u -p
+
+
+In case of ECR
+----------------------
+
+docker login -u AWS -P RegistryURL
+
+
+
+Container Commands ::
+-----------------------------
+
+Image : Package ot contains all the requirs s/w+dependencies+env+configuration
+Container : Run time process of docker image.
+Docker Files: It 's text file it contains instructions to create docker image.
+
+
+
+# List running containes
+docker ps or docker conatiner ls:
+
+
+# List all runninr+stopped containers 
+docker ps -a 
+
+docker create --name <containerNAme> -p (hostport:containerport) (Image)
+docker run --name <containerNAme> -p (hostport:containerport) (image)
+
+Q)what is the diff b/w docker run and docker create ?
+
+Ans: Docker create will just create the container.
+ Docker run will create and run the container.
+
+docker rm <containerID/Name)
+
+docker rm -f  (containerID/Name)
+
+doicker rm -f $(docker ps -aq)  --> :It will delete all the
+                                 running+stopped container.
+
+docker rm -f $(docker ps -aq -f status=exited) --> It will delete only stopped container .
+
+docker start containerName
+
+Q) What is the diff b/w docker stop and docker kill ?
+
+Ans: docker stop:: It will send SIGTERM signal to the mainprocess
+                   inside the container.
+
+docker kill:: It will send the SIGKill signal to the mainprocess 
+              inside the container.
+
+SIGTERM: Gracefully 
+SIGKILL: Forcefully.
+
+docker kill <containerID/Name>
+
+Q) Can we have more than one process running inside a container ?
+
+ANS : YES.Technically it's possible .But it's not recommended.
+
+
+
+Docker top <containerID/Name>
+# It will show the top running process of the container
+
+
+Q) How to troubleshoot if your application is not accessable
+ and that application is running as container ?
+
+ANS: 
+0) Server should be up and running dockerd (docker process)
+1) Check if container is running or not.
+2)Check if you are able to acess application or not locally.
+
+
+docker exec <containerID/Name> ls
+docker exec <containerID/Name> pwd
+docker exec <containerID/Name> ps -ef
+
+
+#Get inside container shell
+
+docker exec -it <containerID/Name> /bin/bash
+
+We can not ssh to the container. Because container is not a system .
+
+docker logs <containerID/Name>
+
+Will display what ever has been to sent to STDOUT & STDERROR
+by the process which is running inside a container.
+
+
+
+docker stats <containerID/Name>
+
+will display CPU/Memory/Network I/O of the container.
+
+
+docker run -d --name <containerName> -p <port:containerport> --cpus "0.25" --memory "256Mi" <Image>
+
+1core =1000m
+
+docker rename <existingContainerName> <NewContainerName>
+
+docker cp src file  dest file
+
+Using docker cp we can copy files/folders from container to system and vise versa.
+
+
+
+Q ) What is diff b/w docker cp and COPY ?
+
+Ans : COPY is a instruction in dockerfile.
+COPY can be used to copy files and folders to image while 
+creating image .
+
+
+Q) What is docker commit ?
+
+Ans : docker  commit  Create a new image from a container’s changes.
+
+Sometimes we take a standard image and make changes in it and customize it. So the container which we have in running condition that we wanted to store as an image.
+
+Docker commit is a useful command to create an image from that running container so that we can use it as an image and create as many as containers from it.
+
+docker commit javawebapp anilsenapati94/java-web-app:fromcontainer
+
+Docker file
+-------------------------
+
+Docker Files: It 's text file it contains docker instructions to 
+Docker daemon will process these instructions from top to bottom
+in order to create docker image.
+
+DSL : Domain spefic language .
+
+Q) Can we have other instruction other than FROM as first instruction ?
+Ans : Other than FROM we can have only ARG as first instruction in docker file
+
+
+
+
+FROM
+-------
+FROM is used to get the base image to create your own image.
+our image will be created on top that image.
+
+
+Syntax :
+
+FROM <Image>
+    <repos> : <tag>
+From tomcat:8.2  
+
+
+MAINTAINER
+-------------
+We can define the author/owner of the image.It's kind of
+document purpose.
+
+
+COPY
+------------
+It will copy local file/folders from build context (from hostserver 
+where u are building image) to image
+
+COPY <source> <destination>
+
+Source: File or folder path from build context.
+destination : With in that image in which directory your want to copy . 
+
+
+Q) What is diff b/w ADD and COPY ?
+
+
+
+ADD :
+--------------------------
+ADD also can be to add(copy) files/folders to the image . ADD
+can add(copy) local files/folders(build context) ans also files from 
+remote(https endpoints) locations.
+
+If we are adding tar file using ADD it will add(copy) to image and 
+also it will extract that tar file in that image.
+
+Syntax:
+
+ADD <sourcepath> <destinationpath>
+
+ADD <sourceendpoint/URL> <destinationpath>
+
+
+We can execute some cmd /scripts using RUN,CMD,ENTRYPOINT
+
+RUN:
+-----------
+We can execute cmd/scripts using RUN,These RUN instructions
+will be executed while creating an image.These instruction
+will be process on top the previous layers.We can have n number of 
+RUN instruction docker daemon will execute all the RUN instruction in order of
+top to bottom.
+
+RUN instruction is used for configuring some additional s/w and creating folder s
+
+RUN <cmd> <arg1> <arg2>
+RUN apt install git -y
+RUN mkdir -p /opt/app
+
+Q) What is diff b/w in RUN and docker RUN ?
+
+
+CMD:
+--------------
+We can execute cmd/scripts using CMD. These CMD instruction will be
+executed while starting the container.Using CMD we can start 
+the process inside the container.
+
+CMD <cmd> <Arg1> <arg2>
+
+Q) Can we have more than one cmd ?
+
+Ans: Technically yes it's possible . But docker will not execute
+all the CMD eventhough we have more than CMD.
+
+Docker will execute the recent/last one in the order.
+
+apk is a package manager and it is for alpine image
+
+
+
+ENTRYPOINT:
+---------------
+We can set entrypoint(cmd/script) for your container. This
+entrypoint also will be executed(processed) while starting the
+container.
+
+
+Q) What is the diff b/w cmd and entrypoint ?
+
+Ans: CMD can be override at run time ( While creating container
+we can override)
+
+Whereas ENTRYPOINT can't be overriden.
+
+Docker Build Cache
+--------
+
+docker build -t  --no cache
+
+use cases: For using CMD and ENTRYPOINT in single docker file
+-------------------------------------------------------------- 
+While starting the container always i want to execute same 
+cmd/script but I should have an option pass different
+parameters(args) at run time .
+
+
+RUN , CMD ,ENTRYPOINT can be define in 2 froms.
+
+
+1) Shell Form
+--------------------
+synatx: RUN <cmd> <arg1> <arg2>
+CMD <cmd> <arg1> <arg2>
+ENTRYPOINT <cmd> <arg1> <arg2>
+
+ex: RUN mkdir -p /opt/app
+RUN apt install wget -y
+
+CMD sh catalin.sh
+CMD java -jar app.jar
+
+In here process will be executed in child process .
+
+
+2) Executable Form.
+---------------------------	
+syntax: RUN ["<cmd>" <arg1> <arg2>]
+CMD ["<cmd>" <arg1> <arg2>]
+ENTRYPOINT ["<cmd>" <arg1> <arg2>]
+
+
+In executable form process will be running as root process .
+
+
+Q) What is shell form and executable form in Docker ?
+
+Ans : In shell form cmd will be executed as below .
+
+/bin/shell -c cmd arg1 arg2
+
+ex- RUN mkdir -p /opt/app
+/bin/bash -c mkdir -p /opt/app
+
+In ececutable form cmd will be executed as below 
+
+/bin/executable cmd arg1 arg2
+
+ex- RUN mkdir -p /opt/app
+/bin mkdir -p /opt/app
+
+
+CMD , ENTRYPOINT is recommended to define in excutable form
+
+
+
+
+ENV
+------------------
+We can set env varaibles . what eve env we have to set in Dockerfile using ENV ,these env variable
+can be referred/used within Dockerfile instructions or within container any process can access
+
+-e KEY = VALUE
+
+ARG:
+----------
+We can define args(variable) in a dockerfile .
+We can access args within dockerfile while building the image .
+
+docker build <containerID/Name> --build-arg filename=xyz.txt .
+
+
+Q) What is the diff b/w env and args ?
+
+Ans)
+
+LABEL:
+------------
+Lables are key valur pairs .
+Meta data : ITs data about data
+
+
+WORKDIR:
+------------
+It will create directory also.
+
+
+USER :
+----------------
+We can set an user for the image/container so the process will
+started as that user.
+
+sudo su <username>
+
+
+
+
+EXPOSE:
+--------------
+For document purpose
+
+
+VOLUME:
+-----------
+Mount points
+
+
+Q) What is  build cache ?
+
+
+Q) What is the diff b/w ENV and ARG ? 
+
+
+Q) What is alpine base image?
+
+Q) What is .dockerignore file ?
+Ans) It will ignore some file in build context .
+ 
+
+Q) What is best pratice for creating image ?
+
+ANS : 
+1) Use Alpine Base Images where ever it's possible.
+
+2) Use only official image from Docker Hub.
+
+3) Don't install/copy unnecessary files/packages in the image.
+
+4) Try to reduce the number of layers image as much as ASAP.
+
+5) Run your process(Application/Container) as non root user. 
+
+6) Try to scan your docker images to identify vulnarbilites.(Clair S/W)
+
+7) Use multistage Dockerfiles where it's applicable.
+
+Q) What is .docker ignore file ?
+
+Q) What is monolithic arc and microservice arc ?
+
+Monolithic Architecture
+-----------------------------
+It's devlopmental approach or arch .If app is developed in monolothic arch all the features/modules
+are developed ,build and  deployed as a single entity (Package ) .
+
+
+
+Docker Network
+-----------------------
+-----------------------------
+
+Bu default we have 3 docker networks created.
+
+1)bridge (default)
+2)host
+3)null/none
+
+We can create custom bridge network if required .
+
+docker network ls : TO show the network
+
+Mongo DB port : 27017
+
+Postman Tool : it is used to testing the API
+
+Host
+-----------
+ If we create network using host will not have  ip address .Container will be created directly in
+ host network .We no need to port mapping /forwording.
+
+docker network create -d driver networkName
+
+docker network create -d bridge anil
+
+docker run/create --network
+
+
+Docker Volumes
+----------------------
+
+Stateles Applications
+
+State Applications 
+
+
+
+
+
+===============================================================
+Kubernetes
+===============================================================
+Kubernetes is a client server architecture.
+
+Open container Initiative
+K8s support docker via dockershim
+
+
+Kubernetes Architecture:::
+=============================
+To communicate API server / master node we use 
+
+CLI (kubectl)
+
+UI
+
+Kubernetes Master
+-------------------
+API Server
+
+Scheduler
+
+Controller-Manager
+
+etcd
+
+Worker Node
+---------------
+Kubelet
+kube proxy
+
+
+
+
+
+.kube/config file is responsible to configure API Server.
+
+Kubernetes is also called k8s.
+
+Self Managed/Bare Metal K8s Clusters
+
+miniqube:: Single Node k8s clusters. 
+
+kubeadm :: using kubeadm we can provision multi node k8s clusters.
+
+
+kubespary:: It's ansible way of configuring multinode k8s clusters.
+
+
+Required Ports:
+--------------------
+
+Control plane nodes
+- - - - - - - - - - - - - - 
+
+6443* : Kubernetes API server
+
+2379-2380 : etcd server client API
+
+10250 : Kubelet API
+
+10251 : Kube-scheduler
+
+10252 : Kube-controller-manager 
+
+
+Worker node
+- - - - - - - - - 
+
+10250 : Kubelet API
+30000-32767 : NodePort Services**
+
+CNI :Container Network Interface
+
+Wave net
+
+cat .kube/config file contains 3 sections
+
+cluster information
+
+context to which k8s is pointing
+
+user information
+
+
+
+
+K8s Objects/Resources/APIS/WorlLoads
+-------------------------------------- 
+Pods
+Service
+ReplicationControllers
+ReplicaSets
+DaemonSets
+Deployments
+StatefulSet
+ConfigMAps
+Secrets
+StorageClass
+PeristentVolumes
+PersistentVolumeClams
+
+
+
+NameSpace -
+---------------
+You can think of a K8s Namespace as a “ virtual cluster” inside your Kubernetes cluster.
+You can have multiple namespaces inside a single Kubernetes cluster,
+and they are all logically isolated from each other.
+
+The list above shows the Namespaces that a K8s the cluster has by default .
+
+kubectl get ns OR
+kubectl get --namespace
+
+default : It is the default namespace assigned to the deployed objects 
+         by K8s when we deploy a namespaced object without specifying a namespace.
+
+
+kube-system : Kubernetes uses this for creating its own objects.
+
+kubectl get all -n kube-system
+
+kube-public : Its the Namespace accessible to all users.
+            We can use this for keeping shared object available to all the clusters.
+
+
+kube-node-release : It is used for the lease objects associated with each node
+                that improves the performance of the node heartbeats as the cluster scales.
+
+
+
+The basic kubernetes objects include :
+----------------------------------------
+Pod
+Replication Controller
+ReplicaSet
+DaemonSet
+Deployment
+Service
+ClusterIP
+NodePort
+Volume
+Job
+
+
+kubectl pi-resources : To see the apiVersion and kind 
+
+
+To create/Update/Delete/Read any K8s resource/object we use
+kubectl(CLI)
+
+We can use in this 2 ways.
+
+
+1)Imperative Approch : Using cmd
+
+ex- kubectl create namespace namespaceName
+
+2)Declarative Approch : We can declare and then create/update
+/delete in the form of manifest files .
+
+K8s Manifst files
+-------------------
+syntax
+---------
+apiVersion:
+kind:
+metadata:
+  name:
+  labels: (is not mandatory)
+
+
+
+
+
+
+Creating a Namespace
+-------------------------
+apiVersion: v1
+kind: Namespace
+metadata:
+ name: <nsname>
+ labels:
+   teamname: productinventory
+    dl:  
+
+kubectl create -f filename.yml
+kubectl apply( create + update )
+kubectl update
+kubectl delete
+
+
+kubectl api-resources: it will show all the apiversion of the perticular resource .
+
+Q) what is resource quota ? 
+
+Ans - When several users or teams share a cluster with a fixed number of nodes,
+ there is a concern that one team could use more than its fair share of resources.
+
+Resource quotas are a tool for administrators to address this concern.
+
+A resource quota, defined by a ResourceQuota object,
+provides constraints that limit aggregate resource consumption per namespace.
+It can limit the quantity of objects that can be created in a namespace by type,
+as well as the total amount of compute resources that may be consumed by resources 
+in that namespace.
+
+
+K8s APIS/Objects/Resources/Workloads
+-----------------------------------------
+POD
+RReplicationController
+ReplicaSet
+DaemonSet
+Deployment
+StatefulSet
+
+
+Communication
+--------------------
+
+Service
+ ClusterIP
+ NodePort
+ Headless
+ LoadBalancer
+
+
+Storage/Volume
+---------------
+PersistentVolume
+PersistentVolumeClam
+StorageClass
+
+
+RBAC(Role Based Access Controll )
+------------------------------------
+
+Role
+RoleBinding
+ClusterRole
+ClusterRoleBinding
+ServiceAccount
+
+Scheduling & Maintence
+--------------------------
+Node Selector
+Node Affinity
+POD Affinity/AniAffinity
+Taints & Toleratations
+Drain
+Cardon
+Uncardon
+
+
+
+
+
+POD:
+---------
+A pod always runs on a node .
+A pod is the smallest building block or basic unit of scheduling in k8s.
+In K8s cluster pod is represents a running process.
+Inside a pod you can have one or more containers.Those containers all share
+a unique network IP ,storage ,network and any other specification applied to the pod.
+POD is a group of one or more containers which will be running on same node.
+PODs abstract network and storage away from the underlying container.
+
+
+Use cases for side car container
+----------------------------------
+Get the file from FTP Servers and process (read) that file and insert to DB .
+
+Imparatively cmd-
+------------------------
+kubectl run nginx --image=nginx :: POD with names nginx and pod will have 1
+container that is created using nginx:latest 
+
+
+Delcarative way for nginx :
+-----------------------------
+kubectl api-resources
+
+kubectl run nginx --image=nginx
+
+
+apiVersion: v1
+Kind: Pod
+metadata:
+ name:<podName>
+ labels:
+    key: <value
+  namespace:namespace name
+spec:
+ containers:
+ - name: containerName
+   image: Image
+   ports:
+   - containerPort: 
+  env:
+   -name:ENV_VAR_NAME
+    value: value
+   - name:ENV_VAR_NAME
+     value: value
+  resources:
+   requests:
+    cpu:200m
+   memory:256Mi
+   limits:
+     cpu:1
+     memory:1Gi
+       
+ volumes:
+ 
+Deploying app using imperative way
+---------------------------------------
+kubectl run mavenwebapp --image=anilsenapati94/maven-web-application:1
+--port=8080 -n default(namespace)
+
+
+Deploying app using declarative way :
+------------------------------------------
+
+apiVersion: v1
+kind: Pod
+metadata:
+ name: mavenwebapppod
+ labels:
+  app: mavenwebapp
+ namespace: default
+spec:
+ containers:
+ - name: mavenwebappcontainer
+   image: anilsenapati94/maven-web-application:1
+   ports:
+   - containerPort: 8080
+
+dry run : kubectl apply -f mavenwebapppod.yaml --dry-run=client/server
+
+
+
+
+Error : ImagePullBackOff/Error ImagePull(if reg details or project name is not correct)
+
+
+Q) What is diff b/w docker service and k8s service ?
+
+Ans)Docker service is managing container and access the container .
+ 
+
+
+
+K8s Service
+----------
+Service are identified the pod based on lables and selector .
+
+ClusterIP is defaulat for service 
+
+---( This symbol is represents for separate in k8s file)
+
+Service Mainfest
+------------------
+
+apiVersion: v1
+kind: Service
+metadata:
+ name: seviceName
+ nameSpace: namespace
+spec:
+ type:ClusterIP
+ selector:    # POD labels as selectors
+  PODLabelKEY: PODLABELVALUE
+ ports:
+ - port: servicePort
+   targetPort: ContainerPort
+   
+
+
+Example
+-------------
+
+
+apiVersion: v1
+kind: Service
+metadata:
+ name: mavenwebappsvc
+ nameSpace: test-ns
+spec:
+ type:ClusterIP
+ selector:   
+  app: mavenwebapp
+ ports:
+ - port: 80
+   targetPort: 8080
+   
+
+
+Example-2 
+--------------
+
+Creating POD
+
+apVersion: v1
+kind: Pod
+metadata:
+ name:nodejspod
+ namespace: test-ns
+ labels:
+   app: nodeapp
+spec:
+  containers:
+  - name:nodeappcontainer
+    image: anilsenapati94/node-app-mss:1
+    ports:
+     - containerPort: 9981
+
+kubectl apply -f nodejspod.yaml
+
+kubectl exec -it nodejspod -n test-ns -- sh : To go to inside the pod
+
+-c containerName : is used for if multiple container exits.
+
+kubectl get pods : To check the container details 
+
+kubectl get pods -o wide : will show all the details 
+
+
+Q) What is fully qualified domain name ( FQDN ) ?
+
+Ans)curl -vL serviceName.namespaceName.svc.cluster.local
+curl -vL mavenwebappsvc.test-ns.svc.cluster.local
+
+
+Q)What is cluster capacity or how much resources have available the clusters?
+
+Ans)
+
+Pod status
+----------------------
+
+Pending
+---------
+It's pending for some reason it's schedule.It can be due to insufficent resources or there could 
+some other reason.
+
+kubectl describe pod podName
+
+CrashLoopBackOff
+---------------------
+Container process is successfully started .
+
+kubectl describe pod podName
+kubectl logs podName -c containerName
+
+
+
+ImagePullBackOff/ErrorImagePull
+Running
+CreateContainerConfigError
+-------------------------
+ConfigMap
+Secrets
+
+Q) What is static pod ?
+Ans)
+
+
+Q) Can we create static pod ?
+Ans) Yes . go to /etc/kubernetes/mainfest .
+and then copy your .yaml file 
+
+
+ReplicaSet
+-------------
+ReplicaSet is next generation of ReplicationController . ReplicaSet also manages the pod life cycle.
+It will create and manage pods and we scale scale in scale out the pod replicas.
+
+
+Q)What is diff b/w replication controler and replicaSet ?
+
+Ans)RC supports only equality based selector .
+RS supports both equality and set based selector .
+Selectors are not mandatory in RC & in RS selector are mandatory .
+
+RC apiVersion: apps/v1
+   kind: ReplicaSet
+
+selector:
+ matchlabels:
+ matchExpressions:
+ - key: app
+
+
+
+DaemonSet
+----------------
+
+Tolerants:
+
+key= value:effect
+NoSchedule
+PreferNoSchedule
+NoExecute
+
+
+Deployment
+---------------------
+It's recomended to use state less application
+
+It's a recommend way to deploy a Pod . 
+ 
+
+Strategies--
+   Recreate
+   RollingUpdate
+
+kubectl rollout status deployment mavenwebapp -n test-ns --revision 1
+
+Blue Green Deployments
+
+Canaroy Deployments (Slowly increase traffic to new version )
+
+Istio.com 
+
+If the process is running out of CPU --> Process (Application) will slow ( Hung )
+If the process is running out of memory --> OOM killed (Out of memory)
+
+
+Pod Autoscaler 
+
+  HPA--> Horizontal Pod AutoScaler
+  VPA--> Vertical Pod AutoScaler
+
+version 2.+ plugin will not work
+
+Q) Build & deploy any app in k8s using jenkins pipeline .
+
+HPA 
+-----------
+
+HPA is based on matrix.
+HPA is depands upon matrix .
+
+
+Q) What is heapSeter in K8s ?
+Ans)
+
+Q)What is diff b/w heapster and metricsServer ?
+
+Helm is a package manager for deploying k8s applications .
+
+POD autoscalaer scale against resource requests.
+
+
+StatefulSet
+--------------
+This is designed for deploying and managing statefull app.
+
+
+Volume
+---------
+What is hostPath volume in k8s ?
+
+What is emptyDir in k8s?
+
+PersistentVolume
+------------------
+It's a pieace of storage/disk .
+
+PersistentVolumeClaim
+-----------------------------
+It's request for storage(volume).Using PVC can request how much storage u need and with what access
+mode u need
+
+One PVC -- One PV and vice versa
+PVC to PV one to one mapping 
+
+Static Volumes
+-----------------
+The volume created by admins (devops) manually .
+
+Dynamic Volumes
+---------------------
+Provisoning (creating) volumes dynamically using StorageClass .
+
+StorageClass
+-----------
+It is a pieace of s/w .
+
+
+Access Mode
+---------------
+RWX --> ReadWriteOnce
+RWO --> ReadWriteMany
+ROX --> ReadOnlyMany
+RWOP --> ReadWriteOncePod
+
+Reclaim Policy
+----------------
+Retain
+Recycle --> If we delete pvc the associated pv also gets recycled
+Delete --> If we delete pvc the associated pv also gets deleted .
+
+
+Q) What is diff b/w configMath and secreats ?
+
+Q) What are the probes u have in k8s ?
+
+KOPS
+-----------
+Kubernetes operation is a s/w using KOPs we can setup highly available & production ready clusters
+in k8s. KOPS is supporting other cloud platforms like Azure .
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
