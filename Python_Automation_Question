@@ -1,0 +1,448 @@
+1. What is Selenium WebDriver?
+
+•Selenium WebDriver is a browser automation tool that allows you to write scripts
+ in various programming languages to automate browser tasks.
+
+2. How do you set up WebDriver in Python?
+
+•Install Selenium using pip (pip install selenium) and download the appropriate WebDriver 
+ executable (like ChromeDriver for Chrome).
+
+3. How do you initiate a WebDriver session in Python?
+
+python
+Copy code
+
+from selenium import webdriver
+driver = webdriver.Chrome(executable_path="path_to_chromedriver")
+
+4. How do you open a URL using WebDriver?
+
+python
+Copy code
+
+driver.get("http://example.com")
+
+5. What are the different locators available in Selenium?
+
+•ID, Name, Class Name, Tag Name, Link Text, Partial Link Text, CSS Selector, XPath.
+
+6. How do you locate elements by ID in Selenium?
+
+python
+Copy code
+
+element = driver.find_element_by_id("element_id")
+
+7. How do you locate elements by XPath in Selenium?
+
+python
+Copy code
+
+element = driver.find_element_by_xpath("//tagname[@attribute='value']")
+
+8. How can you interact with a text box using Selenium?
+python
+Copy code
+
+textbox = driver.find_element_by_name("textbox_name")
+textbox.send_keys("Your Text")
+
+9. How do you click a button using Selenium?
+
+python
+Copy code
+
+button = driver.find_element_by_name("button_name")
+button.click()
+
+10. How do you handle dropdowns in Selenium?
+
+python
+Copy code
+
+from selenium.webdriver.support.ui import Select
+select = Select(driver.find_element_by_id("dropdown_id"))
+select.select_by_visible_text("Option Text")
+
+11. How do you handle alerts in Selenium?
+
+python
+Copy code
+
+alert = driver.switch_to.alert
+alert.accept()
+
+12. How do you handle frames in Selenium?
+
+python
+Copy code
+
+driver.switch_to.frame("frame_name")
+
+13. How do you handle multiple windows in Selenium?
+
+python
+Copy code
+
+driver.switch_to.window("window_name")
+
+14. What is the difference between find_element and find_elements?
+
+•find_element returns a single WebElement, while find_elements returns a list of WebElements.
+
+15. How do you perform a mouse hover action in Selenium?
+
+Python
+Copy code
+
+from selenium.webdriver import ActionChains
+element = driver.find_element_by_id("element_id")
+hover = ActionChains(driver).move_to_element(element)
+hover.perform()
+
+16. How do you scroll a webpage in Selenium?
+
+python
+Copy code
+
+driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+
+17. How do you upload a file using Selenium?
+
+python
+Copy code
+
+file_input = driver.find_element_by_name("file_input_name")
+file_input.send_keys("path_to_file")
+
+18. How do you take a screenshot using Selenium?
+
+python
+Copy code
+
+driver.save_screenshot("screenshot_name.png")
+
+19. How do you maximize the browser window in Selenium?
+
+python
+Copy code
+
+driver.maximize_window()
+
+20. How do you close the browser window in Selenium?
+
+python
+Copy code
+
+driver.close()
+
+21. How do you quit the WebDriver session?
+
+python
+Copy code
+
+driver.quit()
+
+22. What is the purpose of WebDriverWait in Selenium?
+
+• WebDriverWait is used to define explicit waits to wait for a certain condition before 
+ proceeding.
+
+23. How do you implement an explicit wait in Selenium?
+
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+
+element = WebDriverWait(driver, 10).until(
+    EC.presence_of_element_located((By.ID, "element_id"))
+)
+24. What is an implicit wait in Selenium?
+
+• An implicit wait tells WebDriver to poll the DOM for a certain amount of time when trying 
+  to find any element.
+
+25. How do you set an implicit wait in Selenium?
+
+python
+Copy code
+
+driver.implicitly_wait(10)
+
+26. How do you simulate keyboard actions in Selenium?
+
+from selenium.webdriver.common.keys import Keys
+element.send_keys(Keys.RETURN)
+
+27. How do you handle pop-ups in Selenium?
+
+• You can switch to the alert or new window and handle it.
+
+28. How do you get the page title in Selenium?
+
+python
+Copy code
+
+title = driver.title
+
+29. How do you retrieve the URL of the current page?
+
+python
+Copy code
+
+current_url = driver.current_url
+
+30. How do you work with cookies in Selenium?
+
+driver.get_cookies()
+driver.add_cookie({'name': 'foo', 'value': 'bar'})
+driver.delete_cookie('foo')
+
+31. How do you switch back to the main content from a frame?
+
+driver.switch_to.default_content()
+
+32. What is Page Object Model (POM)?
+
+• POM is a design pattern that creates an object repository for web UI elements.
+ It helps in reducing code duplication and improving test maintenance.
+
+33. How do you implement Page Object Model in Selenium?
+
+• Create separate classes for each page and define the page elements and actions.
+
+34. How do you handle Ajax calls in Selenium?
+
+• Use explicit waits to wait for elements to load after an Ajax call.
+
+35. What is a fluent wait in Selenium?
+
+• Fluent wait is a type of explicit wait that defines the maximum amount of time to wait 
+  for a condition and the frequency to check the condition before throwing an exception.
+
+36. How do you implement fluent wait in Selenium?
+
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+
+wait = WebDriverWait(driver, 30, poll_frequency=5, ignored_exceptions=[ElementNotVisibleException, ElementNotSelectableException])
+element = wait.until(EC.element_to_be_clickable((By.ID, 'element_id')))
+
+37. What are StaleElementReferenceException and NoSuchElementException?
+
+• StaleElementReferenceException occurs when an element is no longer present in the DOM.
+  NoSuchElementException occurs when WebDriver cannot locate an element on the page.
+
+38. How do you handle StaleElementReferenceException?
+
+• Re-find the element or use a try-except block to catch the exception and retry the operation.
+
+39. How do you capture console logs in Selenium?
+
+logs = driver.get_log("browser")
+
+40. What is the difference between driver.close() and driver.quit()?
+
+• driver.close() closes the current window, while driver.quit() ends the entire session and 
+  closes all windows.
+
+41. What are desired capabilities in Selenium?
+
+• Desired capabilities are used to define the properties of the WebDriver instance, like 
+  browser name, version, platform, etc.
+
+42. How do you run Selenium tests on a remote machine using Selenium Grid?
+
+• Use RemoteWebDriver with the Grid Hub URL and desired capabilities.
+
+43. How do you verify the text of an element in Selenium?
+
+• assert "Expected Text" in element.text
+
+44. How do you verify an element's attribute value?
+
+value = element.get_attribute("attribute_name")
+assert value == "expected_value"
+
+45. How do you deal with SSL certificate errors in Selenium?
+
+• Use desired capabilities to accept insecure certificates.
+
+from selenium.webdriver.chrome.options import Options
+options = Options()
+options.add_argument('--ignore-certificate-errors')
+driver = webdriver.Chrome(chrome_options=options)
+
+46. How do you handle JavaScript alerts in Selenium?
+
+alert = driver.switch_to.alert
+alert.accept()  # or alert.dismiss()
+
+47. What is headless browser testing in Selenium?
+
+•Headless testing is running browser tests without a GUI, often used for faster execution
+ in CI environments.
+
+48. How do you run tests in headless mode?
+
+from selenium.webdriver.chrome.options import Options
+options = Options()
+options.headless = True
+driver = webdriver.Chrome(options=options)
+
+49. What is a web element in Selenium?
+• A WebElement represents an element on a web page that can be interacted with via Selenium.
+
+XPATH
+------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------
+
+1.What is XPath, and why is it used in Selenium WebDriver?
+
+•XPath, or XML Path Language, is a language for navigating an XML document and selecting nodes.
+ In the context of Selenium WebDriver, XPath is used as a locator to find web elements on a page.
+ It is a powerful tool that can navigate the webpage's HTML structure, making it extremely 
+ useful when other simple locators like ID or class fail to find the elements reliably.
+
+2.What is the difference between Absolute XPath and Relative XPath?
+
+•Absolute XPath
+-------------------
+Definition: Absolute XPath is an XPath expression that starts from the root node of the 
+document and traverses through each node in the hierarchy to reach the target element.
+
+
+
+| Feature            | Absolute XPath                              | Relative XPath                                 |
+|--------------------|---------------------------------------------|------------------------------------------------|
+| **Starting Point** | Begins from the root of the document (`/`)   | Begins from the current node (`//`)            |
+| **Path Type**      | Full path from the root to the target element | Partial path, starts from any element or context|
+| **Resilience**     | Prone to breaking if the document structure changes | More flexible and less likely to break with changes |
+| **Use Case**       | Suitable for simple, stable structures where document | Suitable for dynamic and frequently changing structures |
+                       hierarchy is unlikely to change 
+
+
+3.How do you write an XPath to locate an element by its text?\
+
+•To write an XPath expression to locate an element by its text, we can use the text() function
+
+python
+copy code
+
+//tagname[text() = 'text']
+
+4.How do you locate an element using XPath with multiple attributes?
+
+•To locate an element using XPath with multiple attributes, you can combine multiple attribute conditions within square brackets [].
+ Each condition is separated by and to ensure that all specified attributes match.
+
+copycode
+
+//tagname[@attribute1='value1' and @attribute2='value2' and ...]
+
+
+5.What is the contains() function in XPath, and how do you use it?
+
+•The contains() function in XPath is used to check whether a string
+ (usually text or attribute value) contains a specified substring.
+
+copyCode
+
+contains(haystack, needle)
+ex:-
+-----
+//div[contains(text(), 'Welcome')]
+
+
+6.How do you use the starts-with() function in XPath?
+
+•The starts-with() function in XPath is used to select elements whose
+ attribute values or text content begin with a specified substring. This function is particularly
+ useful when you want to locate elements based on the prefix of an attribute value or text,
+ rather than the entire string
+
+starts-with(haystack, needle)
+
+ex:-
+--------
+//div[starts-with(@class, 'header')]
+//span[starts-with(text(), 'Hello')]
+
+
+7.What is the difference between // and / in XPath?
+
+•Scope of Search:
+
+/ (Single Slash): Searches from the root node or direct children of the current context.
+   It is used for specifying an exact location in the document.
+// (Double Slash): Searches across all descendants of the current node, regardless of depth. 
+   It is used for a more flexible and broad search.
+
+Starting Point:
+
+/: Always starts from the root of the document when placed at the beginning of the expression.
+//: Can start searching from any point in the document, making it more versatile for locating 
+    elements deep in the hierarchy.
+
+Performance Considerations:
+
+/: Generally more efficient when you know the exact location of the element because it does not
+   traverse the entire document.
+//: Can be less efficient, especially in large documents, because it searches through all nodes 
+    to find matches, potentially traversing a large portion of the document.
+
+8.How do you find an element by its partial attribute value using XPath?
+
+•To find an element by its partial attribute value using XPath, you can use the contains()
+ function. This function allows you to match a substring within an attribute value, making it 
+ useful for locating elements where the attribute value contains a specific word or pattern,
+ but the entire value is not known.
+
+9.How do you write an XPath to select the nth child of a parent element?
+
+•To write an XPath expression that selects the nth child of a parent element, you can use the
+ position() function or an index in square brackets []. These methods allow you to specify the
+ exact position of the child element you want to select.
+
+Syntax:
+---------
+//parent/child[n]
+
+Examples
+--------------
+1.Select the 3rd <li> element under any <ul> parent:
+
+//ul/li[3]
+
+This XPath expression selects the third <li> element that is a child of any <ul> element.
+
+2.Select the 2nd <div> child of a specific <div> with an id of "container":
+
+//div[@id='container']/div[2]
+
+This XPath expression selects the second <div> child of a <div> element with an id attribute
+ of "container".
+
+
+10.How do you handle dynamic web elements using XPath in Selenium WebDriver?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
